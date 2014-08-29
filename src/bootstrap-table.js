@@ -523,13 +523,16 @@
         this.updatePagination();
     };
 
-    BootstrapTable.prototype.initSearch = function () {
+    BootstrapTable.prototype.initSearch = function (field) {
         if (this.searchText && this.options.sidePagination !== 'server') {
             var s = this.searchText.toLowerCase();
 
             this.data = s ? $.grep(this.options.data, function (item) {
                 for (var key in item) {
-                    if ((typeof item[key] === 'string' ||
+                    if (field && item[key] === field){
+                      return true;
+                    }
+                    if(typeof item[key] === 'string' ||
                         typeof item[key] === 'number') &&
                         (item[key] + '').toLowerCase().indexOf(s) !== -1) {
                         return true;
